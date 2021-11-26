@@ -30,16 +30,19 @@ def run():
     zpy.objects.save_pose("Camera", "cam_pose")        
     all_objs = cans + bottles
     for obj in all_objs:    
-            zpy.objects.restore_pose(obj, obj + "_pose")
+            zpy.objects.save_pose(obj, obj + "_pose")
             zpy.objects.toggle_hidden(obj, hidden=True)
     
-    
+    n_cans = 2
+    n_bottles = 1
 
     # Run the sim.
     for step_idx in zpy.blender.step():
         
         # Pick some random objects  
-        objs = [random.choice(cans)] + [random.choice(bottles)] 
+        objs = random.sample(cans, n_cans) + random.sample(bottles, n_bottles)
+        
+        
         log.info("Objects: " , str(objs))
         for obj in objs:
             # Make the object visible
@@ -74,10 +77,7 @@ def run():
   
         # Segment the objects
         for obj in objs:    
-            if obj in cans:
-                color = can_seg_color
-            else:
-                color = bottle_seg_color
+            color = zpy.color.random_color(output_style="frgb")
             zpy.objects.segment(obj, color=color, as_category=False)
             
         
@@ -123,18 +123,19 @@ def run():
 
            
         # Add annotation to segmentation image
-        saver.add_annotation(
-            image=rgb_image_name,
-            seg_image=iseg_image_name,
-            seg_color=can_seg_color,
-            category="Can",
-        )
-        saver.add_annotation(
-            image=rgb_image_name,
-            seg_image=iseg_image_name,
-            seg_color=bottle_seg_color,
-            category="Bottle",
-        )
+        for obj in objs:   
+            if obj in cans: 
+                saver.add_annotation(
+                    image=rgb_image_name,
+                    seg_image=iseg_image_name,
+                    seg_color= tuple(zpy.objects.verify(obj).seg.instance_color), 
+                    category="Can")
+            if obj in bottles:
+                saver.add_annotation(
+                    image=rgb_image_name,
+                    seg_image=iseg_image_name,
+                    seg_color= tuple(zpy.objects.verify(obj).seg.instance_color),
+                    category="Bottle")
         
 
         # Return camera and objects to original positions
