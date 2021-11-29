@@ -8,14 +8,20 @@ import bpy
 import zpy
 
 log = logging.getLogger("zpy")
+log.info("*******")
+log.info("Simulation started.")
 
+from pathlib import Path
+out_path = str(Path(__file__).parent.absolute())
+out_path = out_path.replace('drinks.blend','')  + "output/"
+log.info("out_path: " + out_path)
 
 def run():
     # Random seed results in unique behavior
     zpy.blender.set_seed()
 
     # Create the saver object
-    saver = zpy.saver_image.ImageSaver(description="Drinks Dataset Generator")
+    saver = zpy.saver_image.ImageSaver(description="Drinks Dataset Generator", output_dir = out_path)
  
     # Add the label categories
     can_seg_color = zpy.color.random_color(output_style="frgb")
@@ -29,7 +35,7 @@ def run():
     # Save the positions of objects so we can jitter them later
     zpy.objects.save_pose("Camera", "cam_pose")        
     all_objs = cans + bottles
-    for obj in all_objs:    
+    for obj in all_objs:     
             zpy.objects.save_pose(obj, obj + "_pose")
             zpy.objects.toggle_hidden(obj, hidden=True)
     
