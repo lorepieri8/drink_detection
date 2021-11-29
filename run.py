@@ -7,13 +7,16 @@ import mathutils
 import bpy
 import zpy
 
+from datetime import datetime
+startTime = datetime.now()
+
 log = logging.getLogger("zpy")
 log.info("*******")
 log.info("Simulation started.")
 
 from pathlib import Path
-out_path = str(Path(__file__).parent.absolute())
-out_path = out_path.replace('drinks.blend','')  + "output_dataset/"
+blender_path = str(Path(__file__).parent.absolute()).replace('drinks.blend','')
+out_path = blender_path  + "output_dataset/"
 log.info("out_path: " + out_path)
 
 def run():
@@ -26,11 +29,11 @@ def run():
     # Add the label categories
     can_seg_color = zpy.color.random_color(output_style="frgb")
     saver.add_category(name="Can", color=can_seg_color)
-    cans = ["coca_cola_can", "ocha_can_500ml"]
+    cans = ["coca_cola_can", "ocha_can_500ml", "monster_can", "beer_golden","monster_can","Aluminium_Can"]
     
     bottle_seg_color = zpy.color.random_color(output_style="frgb")
     saver.add_category(name="Bottle", color=bottle_seg_color)
-    bottles = ["koicha"]
+    bottles = ["koicha","waterbottle_6_new","nihon_no_koohii","pepsi_large","waterbottle_large"]
     
     # Save the positions of objects so we can jitter them later
     zpy.objects.save_pose("Camera", "cam_pose")        
@@ -39,7 +42,7 @@ def run():
             zpy.objects.save_pose(obj, obj + "_pose")
             zpy.objects.toggle_hidden(obj, hidden=True)
     
-    n_cans = 2
+    n_cans = 1
     n_bottles = 1
 
     # Run the sim.
@@ -57,7 +60,7 @@ def run():
             # Jitter object pose
             zpy.objects.jitter(
                 obj,
-                translate_range=((-1, 1), (-1, 1), (-0.5, 0.5)),
+                translate_range=((-0.5, 0.5), (-0.5, 0.5), (-0.5, 0.5)),
                 rotate_range=(
                     (-math.pi, math.pi),
                     (-math.pi, math.pi),
@@ -69,9 +72,9 @@ def run():
         zpy.objects.jitter(
             "Camera",
             translate_range=(
-                (-2, 2),
-                (-2, 2),
-                (-2, 2),
+                (-1, 1),
+                (-1, 1),
+                (-1, 1),
             ),
         )
 
@@ -167,9 +170,7 @@ def run():
     for obj in all_objs:    
             zpy.objects.toggle_hidden(obj, hidden=False)
     
-    log.info("Simulation complete.")
-    
-    
+    log.info("Simulation complete in " + str(datetime.now() - startTime))
 
 
 if __name__ == "__main__":
