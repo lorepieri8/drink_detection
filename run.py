@@ -3,7 +3,6 @@
 import logging
 import math
 import random
-import mathutils
 import bpy
 import zpy
 
@@ -18,13 +17,20 @@ from pathlib import Path
 blender_path = str(Path(__file__).parent.absolute()).replace('drinks.blend','')
 out_path = blender_path  + "output_dataset/"
 log.info("out_path: " + out_path)
+ 
+
 
 def run():
-    # Random seed results in unique behavior
-    zpy.blender.set_seed()
+    #build_dataset(subpath="/train")
+    build_dataset(subpath="/test")
 
+def build_dataset(subpath=""):
+    
+    # Random seed results in unique behavior
+    #zpy.blender.set_seed()
+    
     # Create the saver object
-    saver = zpy.saver_image.ImageSaver(description="Drinks Dataset Generator", output_dir = out_path)
+    saver = zpy.saver_image.ImageSaver(description="Drinks Dataset Generator", output_dir = out_path + subpath)
  
     # Add the label categories
     can_seg_color = zpy.color.random_color(output_style="frgb")
@@ -60,7 +66,7 @@ def run():
             # Jitter object pose
             zpy.objects.jitter(
                 obj,
-                translate_range=((-0.5, 0.5), (-0.5, 0.5), (-0.5, 0.5)),
+                translate_range=((-1, 1), (-1, 1), (-1, 1)),
                 rotate_range=(
                     (-math.pi, math.pi),
                     (-math.pi, math.pi),
@@ -160,9 +166,6 @@ def run():
     saver.output_annotated_images()
     saver.output_meta_analysis()
 
-    # ZUMO Annotations
-    # zpy.output_zumo.OutputZUMO(saver).output_annotations()
-
     # COCO Annotations
     zpy.output_coco.OutputCOCO(saver).output_annotations()
     
@@ -182,3 +185,4 @@ if __name__ == "__main__":
 
     # Run the sim
     run()
+    
