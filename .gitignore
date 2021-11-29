@@ -1,5 +1,6 @@
 assets/
 output/
+output_dataset/
 *.blend1
 *.blend
 

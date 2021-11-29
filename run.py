@@ -13,7 +13,7 @@ log.info("Simulation started.")
 
 from pathlib import Path
 out_path = str(Path(__file__).parent.absolute())
-out_path = out_path.replace('drinks.blend','')  + "output/"
+out_path = out_path.replace('drinks.blend','')  + "output_dataset/"
 log.info("out_path: " + out_path)
 
 def run():
