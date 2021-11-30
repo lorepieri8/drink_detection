@@ -21,8 +21,8 @@ log.info("out_path: " + out_path)
 
 
 def run():
-    #build_dataset(subpath="/train")
-    build_dataset(subpath="/test")
+    build_dataset(subpath="/train")
+    #build_dataset(subpath="/test")
 
 def build_dataset(subpath=""):
     
@@ -66,23 +66,23 @@ def build_dataset(subpath=""):
             # Jitter object pose
             zpy.objects.jitter(
                 obj,
-                translate_range=((-1, 1), (-1, 1), (-1, 1)),
+                translate_range=((-0.25, 0.25), (-0.5, 0.5), (-0.25, 0.25)),
                 rotate_range=(
-                    (-math.pi, math.pi),
-                    (-math.pi, math.pi),
-                    (-math.pi, math.pi),
+                    (-math.pi * 0.1, math.pi * 0.1),
+                    (-math.pi * 0.1, math.pi * 0.1),
+                    (-math.pi * 0.1, math.pi * 0.1),
                 ),
             )
 
         # Jitter the camera pose
-        zpy.objects.jitter(
-            "Camera",
-            translate_range=(
-                (-1, 1),
-                (-1, 1),
-                (-1, 1),
-            ),
-        )
+        #zpy.objects.jitter(
+        #    "Camera",
+        #    translate_range=(
+        #        (-1, 1),
+        #        (-1, 1),
+        #        (-1, 1),
+        #    ),
+        #)
 
         # Camera should be centered at one of the objects
         zpy.camera.look_at("Camera", bpy.data.objects[objs[0]].location)

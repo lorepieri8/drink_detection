@@ -2,7 +2,7 @@ assets/
 output/
 output_dataset/
 *.blend1
-*.blend
+#*.blend
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
