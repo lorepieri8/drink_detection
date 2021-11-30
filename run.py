@@ -55,8 +55,8 @@ def build_dataset(subpath=""):
     for step_idx in zpy.blender.step():
         
         # Pick some random objects  
-        objs = random.sample(cans, n_cans) + random.sample(bottles, n_bottles)
-        
+        #objs = random.sample(cans, n_cans) + random.sample(bottles, n_bottles)
+        objs = random.sample(all_objs, 1)
         
         log.info("Objects: " , str(objs))
         for obj in objs:
@@ -66,7 +66,7 @@ def build_dataset(subpath=""):
             # Jitter object pose
             zpy.objects.jitter(
                 obj,
-                translate_range=((-0.25, 0.25), (-0.5, 0.5), (-0.25, 0.25)),
+                translate_range=((-0.1, 0.1), (-0.1, 0.1), (-0.1, 0.1)),
                 rotate_range=(
                     (-math.pi * 0.1, math.pi * 0.1),
                     (-math.pi * 0.1, math.pi * 0.1),
