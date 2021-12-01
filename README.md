@@ -12,6 +12,7 @@ If in Colab:
     -Zip the output folder containing the dataset and the target images.
     -Upload the two zip files to a colab instance
 
+-Install Detectron2 (Linux has binaries, Mac need install from source, Win not supported) (https://github.com/facebookresearch/detectron2/blob/main/INSTALL.md)
 -Run the notebook
 
 
