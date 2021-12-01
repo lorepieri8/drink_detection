@@ -18,7 +18,14 @@ If in Colab:
 -Run the notebook
 
 
-# About the neural network:
+## About the neural network:
 
 The detector uses detectron2, and in particular it starts training from a pretrained Mask-RCNN with Feature Pyramide Network architecture, which is suited for both instance segmentation and object detection tasks.
 Mask RCNN is a region based convolutional neural network, which works by first extracting region proposals and then predictin which object is inside. Thanks to a pooling of region of interests (ROI Pooling) images of any size are allowed and thanks to the Feature Pyramide Network architecture the detector is able to detect objects at multiple scales, from small to large.
+
+
+## Other
+
+Pre made dataset, trained weights, sample results:
+
+https://drive.google.com/drive/folders/1IH0CDTnjysKW7WFFGNQAPQIoxP44Q0TM 
