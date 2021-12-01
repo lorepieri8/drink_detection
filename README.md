@@ -3,7 +3,9 @@
 ## Build the synthetic dataset
 
 -Install Blender 2.93.6
--Install zpy and zpy add-on (https://github.com/ZumoLabs/zpy)
+-Install zpy (https://zumolabs.github.io/zpy/zpy/install/pip/) and zpy add-on (https://zumolabs.github.io/zpy/addon/install/). For more info: (https://github.com/ZumoLabs/zpy)
+Make sure to install zpy with the python blender, not your system python.
+See https://blender.stackexchange.com/a/122337/116831 as an example of installing python modules in blender.
 -Load the .blend file, load the run.py script + config.gin and run the simulation (press "Run" in the Execute tab) in the zpy add-on.
 
 ## Train and Evaluate a detection model
