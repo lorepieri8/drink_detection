@@ -35,11 +35,11 @@ def build_dataset(subpath=""):
     # Add the label categories
     can_seg_color = zpy.color.random_color(output_style="frgb")
     saver.add_category(name="Can", color=can_seg_color)
-    cans = ["coca_cola_can", "ocha_can_500ml", "monster_can", "beer_golden","monster_can","Aluminium_Can"]
+    cans = ["coca_cola_can", "ocha_can_500ml", "monster_can", "beer_golden"]# ,"Aluminium_Can"
     
     bottle_seg_color = zpy.color.random_color(output_style="frgb")
     saver.add_category(name="Bottle", color=bottle_seg_color)
-    bottles = ["koicha","waterbottle_6_new","nihon_no_koohii","pepsi_large","waterbottle_large"]
+    bottles = ["koicha","waterbottle_6_new","pepsi_large","waterbottle_large"] # nihon_no_koohii, 
     
     # Save the positions of objects so we can jitter them later
     zpy.objects.save_pose("Camera", "cam_pose")        
@@ -85,7 +85,7 @@ def build_dataset(subpath=""):
         #)
 
         # Camera should be centered at one of the objects
-        zpy.camera.look_at("Camera", bpy.data.objects[objs[0]].location)
+        # zpy.camera.look_at("Camera", bpy.data.objects[objs[0]].location)
 
         # HDRIs are like a pre-made background with lighting
         zpy.hdris.random_hdri()
