@@ -1,7 +1,8 @@
 # Drink Detection
 
 Simple scripts to generate an arbitrary large synthetic dataset starting from 3d models and train a neural network to recognise real objects (box detection, instance segmentation, panoptic).
-The script performs also randomisation, by varying the models background, lighting, texture, etc
+The script performs also randomisation, by varying the models background, lighting, texture, etc.
+
 To get better result on real objects I suggest to also augment the dataset with real pictures.
 Using Blender, Zpy and Detectron2.
 I've tested it with drinks, but it can be used for arbitrary objects! 
